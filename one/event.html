@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Event</title>
+</head>
+<body>
+  <div id="ev">
+    <style>
+      #ev {
+        width: 300px;
+        height: 100px;
+        color: #fff;
+        background: red;
+        text-align: center;
+        line-height: 100px;
+        font-size: 30px;
+      }
+    </style>
+    目 标 元 素
+  </div>
+  <script>
+    window.addEventListener('click', function() {
+      console.log('window capture ~~~')
+    }, true) // 设为捕获
+
+    document.addEventListener('click', function() {
+      console.log('document capture ~~~')
+    }, true)
+
+    ev.addEventListener('click', function() {
+      console.log('ev element capture ~~~')
+    }, true) // 调整顺序
+
+    document.documentElement.addEventListener('click', function() {
+      console.log('html capture ~~~')
+    }, true)
+  </script>
+</body>
+</html>
