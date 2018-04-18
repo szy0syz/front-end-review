@@ -36,7 +36,26 @@
 
     document.documentElement.addEventListener('click', function() {
       console.log('html capture ~~~')
+      ev.dispatchEvent(event)
     }, true)
+
+    /////////////CustomEvent///////////////
+    // 绑定时间相应
+    ev.addEventListener('jerry', function(e) {
+      console.log('jerry事件被触发了~~')
+      console.dir(e)
+    }, true)
+    
+    // 创建新事件
+    var event = new CustomEvent('jerry', {
+      detail: {
+        name: 'jerry shi',
+        age: '18'
+      }
+    })
+
+    // 触发事件
+    ev.dispatchEvent(event)
   </script>
 </body>
 </html>
