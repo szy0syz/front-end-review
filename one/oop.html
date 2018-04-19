@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>面向对象</title>
+</head>
+<body>
+    <script>
+        // 组合继承的优化2
+        function Parent5() {
+            this.name = 'parnet5'
+            this.play = [1,2,3]
+        }
+        function Child5() {
+            // 把子类this顶替到父类构造函数 = 把父类this各属性赋予子类this上
+            Parent5.call(this)
+            this.type = 'child5'
+        }
+        // 你懂的，只有函数才有prototype属性
+        Child5.prototype = Object.create(Parent5.prototype) // __proto
+        // 因为就算上一步建了一个空对象隔离，但最终还是会因为原型链找到Parent5.prototype
+        // 所以此时我们正好可以在Object.create建立的空对象上替换constructor为Child5自己
+        Child5.prototype.constructor = Child5
+
+        var s7 = new Child5
+        var s8 = new Child5
+        console.log(s7, s8)
+        console.log(s7 instanceof Child5, s7 instanceof Parent5)
+        console.log(s7.constructor)
+    </script>
+</body>
+</html>
