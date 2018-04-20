@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Todo List</title>
-    <script src="vue.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Todo List</title>
+  <script src="vue.js"></script>
 </head>
+
 <body>
-    <div id='app'>
-        <input type="text" v-model="inputValue" @keyup.enter="handleAddItem">
-        <!-- <ul>
+  <div id='app'>
+    <input type="text" v-model="inputValue" @keyup.enter="handleAddItem">
+    <!-- <ul>
             <li @click="handleRemove(index)" v-for="(item, index) in list">{{item}}</li>
         </ul> -->
-        <todo-list @remove="handlerRemoveItem" :list="list"></todo-list>
-    </div>
+    <todo-list @remove="handlerRemoveItem" :list="list"></todo-list>
+  </div>
 
-    <script>
-        const todoList = {
-            props: ['list'],
-            template: '<ul><li @click="handleItemClick(index)" v-for="(item, index) in list">{{item}}</li></ul>',
-            methods: {
-                handleItemClick(index) {
-                    console.log(index)
-                    this.$emit('remove', index)
-                }
-            }
+  <script>
+    const todoList = {
+      props: ['list'],
+      template: '<ul><li @click="handleItemClick(index)" v-for="(item, index) in list">{{item}}</li></ul>',
+      methods: {
+        handleItemClick(index) {
+          console.log(index)
+          this.$emit('remove', index)
         }
+      }
+    }
 
-        var vm = new Vue({
-            el: '#app',
-            data: {
-                inputValue: '',
-                list: ['one', 'two', 'three']
-            },
-            components: {
-                todoList
-            },
-            methods: {
-                handleAddItem() {
-                    this.list.push(this.inputValue)
-                    this.inputValue = ''
-                },
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        inputValue: '',
+        list: ['one', 'two', 'three']
+      },
+      components: {
+        todoList
+      },
+      methods: {
+        handleAddItem() {
+          this.list.push(this.inputValue)
+          this.inputValue = ''
+        },
 
-                handlerRemoveItem(index) {
-                    this.list.splice(index, 1)
-                }
-            }
-        })
-    </script>
+        handlerRemoveItem(index) {
+          this.list.splice(index, 1)
+        }
+      }
+    })
+  </script>
 </body>
+
 </html>
