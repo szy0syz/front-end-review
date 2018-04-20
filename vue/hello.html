@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello World</title>
+</head>
+<body>
+    <div id='app'>{{content}}</div>
+  
+    <div>{{content}}</div>
+  
+    <script src="./vue.js"></script>
+    <script>
+      // var app = document.getElementById('app')
+      // app.innerHTML = 'hello world'
+      // setTimeout(() => {
+      //   app.innerHTML = 'hello world Timeout'
+      // }, 2000)
+  
+      var app = new Vue({
+        el: '#app',
+        data: () => {
+          return  {
+            content: 'hello Vue'
+          }
+        }
+      })
+  
+      setTimeout(() => {
+        app.$data.content = 'hello jerry'
+      }, 2000)
+    </script>
+  </body>
+</html>
