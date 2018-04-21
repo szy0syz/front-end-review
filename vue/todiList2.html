@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TodoList2</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="inputValue" @keyup.enter="handleAddItem">
+        <!-- <ul>
+            <li @click="handleClickItem(index)" v-for="(item, index) in list">{{item}}</li>
+        </ul> -->
+        <todo-list :data='list' @remove="handleRemoveItem"></todo-list>
+    </div>
+    
+    <script src="vue.js"></script>
+    <script>
+        const todoList = {
+            props: ['data'],
+            template: `
+            <ul>
+                <li @click="handleClickItem(index)" v-for="(item, index) in data">{{item}}</li>
+            </ul>
+            `,
+            methods: {
+                handleClickItem(index) {
+                    this.$emit('remove', index)
+                }
+            }
+        }
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                list: ['one', 'two', 'three'],
+                inputValue: ''
+            },
+            methods: {
+                handleAddItem() {
+                    this.list.push(this.inputValue)
+                    this.inputValue = ''
+                },
+
+                handleRemoveItem(index) {
+                    this.list.splice(index, 1)
+                }
+            },
+            components: {
+                todoList
+            }
+        })
+    </script>
+</body>
+</html>
