@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue的bus、总线、发布订阅模式、观察者模式应用</title>
+</head>
+
+<body>
+  <div id="app">
+    <child content="saber1"></child>
+    <child content="saber2"></child>
+    <child content="saber3"></child>
+  </div>
+
+
+  <script src="vue.js"></script>
+  <script>
+    // 在Vue构造函数的原型对象上创建bus机制 = 新的Vue实例
+    Vue.prototype.bus = new Vue()
+
+    Vue.component('child', {
+      props: ['content'],
+      data: function() {
+        return {
+          myContent: this.content
+        }
+      },
+      template: '<div @click="handleClick">{{myContent}}</div>',
+      methods: {
+        handleClick() {
+          this.bus.$emit('change', this.myContent)
+        }
+      },
+      mounted: function() {
+        var _this = this
+        this.bus.$on('change', function(msg) {
+          console.log(msg)
+          _this.myContent = msg
+        })
+      }
+    })
+
+    const vm = new Vue({
+      el: '#app'
+    })
+  </script>
+</body>
+
+</html>
