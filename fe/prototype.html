@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>原型扩展</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .nav {
+      display: flex;
+    }
+
+    .nav li {
+      list-style-type: none;
+      border: 1px solid #000;
+      margin: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul class="nav">
+        <li>首页</li>
+        <li>关于</li>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <article id="myContent">
+      <p>我是内容</p>
+    </article>
+  </section>
+  <footer>
+    <p>我是footer</p>
+  </footer>
+
+  <script>
+    function Elem(id) {
+      this.elem = document.getElementById(id)
+    }
+
+    Elem.prototype.html = function (val) {
+      var elem = this.elem
+      if (val) {
+        elem.innerHTML = val
+        return this // 链式操作
+      } else {
+        return elem.innerHTML // 如果没有就返回元素html文本
+      }
+    }
+
+    Elem.prototype.on = function (type, fn) {
+      var elem = this.elem
+      if (fn && (Object.prototype.toString.call(fn) === '[object Function]')) {
+        elem.addEventListener(type, fn) // 冒泡
+        return this
+      } else {
+        throw new Error('fn must be function')
+      }
+    }
+
+    var myContent = new Elem('myContent')
+    setTimeout(function () {
+      myContent.html('我被修改了~~~~~~~~').on('click', function () { alert('click~~~') })
+    }, 1000)
+  </script>
+</body>
+
+</html>
